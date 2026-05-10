@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khusab Lamichhane — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1b2d;
+    --navy-mid: #1a2e45;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --cream-dark: #e8e0d0;
+    --text-main: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 4rem;
+    background: rgba(15, 27, 45, 0.97);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cream-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 110;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--navy);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .mobile-menu a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--cream);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -300px; left: -100px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.08);
+  }
+  .hero-text { z-index: 1; }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero-name span { color: var(--gold); font-style: italic; }
+  .hero-tagline {
+    font-size: 1.05rem;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-cta {
+    display: inline-flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.8rem 2rem;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold);
+    padding: 0.8rem 2rem;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  .avatar-ring {
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .avatar-ring::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+  .avatar-inner {
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: var(--navy-mid);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .avatar-initials {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .avatar-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--text-main);
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-objective {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    font-style: italic;
+    border-left: 3px solid var(--gold);
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .about-details { display: flex; flex-direction: column; gap: 1rem; }
+  .detail-item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--cream);
+    border-radius: 4px;
+  }
+  .detail-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    min-width: 100px;
+  }
+  .detail-value { font-weight: 500; color: var(--text-main); font-size: 0.95rem; }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: var(--navy); }
+  .experience .section-title { color: var(--white); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px;
+    width: 1px;
+    height: calc(100% - 16px);
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2.5rem;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 8px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px rgba(201,168,76,0.15);
+  }
+  .timeline-company {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+  .timeline-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-desc {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── EDUCATION ── */
+  .education { background: var(--cream); }
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .edu-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-top: 3px solid var(--gold);
+    padding: 1.5rem;
+    border-radius: 4px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .edu-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .edu-level {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-bottom: 0.3rem;
+  }
+  .edu-faculty { font-size: 0.85rem; color: var(--text-muted); }
+  .edu-badge {
+    display: inline-block;
+    margin-top: 0.8rem;
+    padding: 0.25rem 0.7rem;
+    background: var(--cream);
+    border-radius: 2px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  /* ── STRENGTHS ── */
+  .strengths { background: var(--white); }
+  .strengths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .strength-card {
+    padding: 2rem 1.5rem;
+    background: var(--navy);
+    border-radius: 4px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .strength-card:hover { transform: translateY(-3px); }
+  .strength-icon {
+    width: 48px; height: 48px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+  .strength-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--white);
+  }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--navy); text-align: center; }
+  .contact .section-title { color: var(--white); }
+  .contact-tagline {
+    color: rgba(245,240,232,0.6);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .contact-item {
+    padding: 1.5rem;
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+  }
+  .contact-item-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .contact-item-value {
+    font-size: 0.9rem;
+    color: var(--cream);
+    word-break: break-all;
+  }
+
+  /* ── REFERENCES ── */
+  .references { background: var(--cream); }
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .ref-card {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    padding: 1.5rem;
+    border-radius: 4px;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .ref-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ref-name { font-weight: 500; color: var(--text-main); margin-bottom: 0.2rem; }
+  .ref-role { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+  .ref-org { font-size: 0.78rem; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.6rem; }
+  .ref-contact { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── SOCIAL ICONS ── */
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .social-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.35);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold);
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .social-btn:hover {
+    background: rgba(201,168,76,0.15);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+  .social-btn svg { width: 17px; height: 17px; fill: currentColor; }
+
+  /* hero social row */
+  .hero-social { margin-top: 2rem; }
+
+  /* contact section social row */
+  .contact-social {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .contact-social .social-btn {
+    width: 48px; height: 48px;
+    border-color: rgba(201,168,76,0.3);
+  }
+  .contact-social .social-btn svg { width: 20px; height: 20px; }
+
+  /* ── CONTACT FORM ── */
+  .contact-form-wrap {
+    max-width: 580px;
+    margin: 0 auto 3rem;
+  }
+  .contact-form-wrap h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.03em;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .form-field label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.7);
+  }
+  .form-field input,
+  .form-field textarea {
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 3px;
+    padding: 0.75rem 1rem;
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    resize: vertical;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus { border-color: var(--gold); }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder { color: rgba(245,240,232,0.25); }
+
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1.25rem;
+  }
+  .btn-email {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-email:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-whatsapp {
+    background: #25d366;
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-whatsapp:hover { background: #1ebe5d; transform: translateY(-1px); }
+  .btn-email svg, .btn-whatsapp svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080e17;
+    text-align: center;
+    padding: 2rem 4rem;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 0.08em;
+  }
+  .footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+  .footer-social .social-btn {
+    width: 34px; height: 34px;
+    border-color: rgba(201,168,76,0.2);
+  }
+  .footer-social .social-btn svg { width: 14px; height: 14px; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--navy-mid);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: var(--cream);
+    padding: 0.85rem 1.75rem;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: #4caf82; color: #4caf82; }
+  .toast.error   { border-color: #e05c5c; color: #e05c5c; }
+
+  /* loading spinner on button */
+  .btn-email.loading { opacity: 0.7; pointer-events: none; }
+  .btn-email.loading::after {
+    content: '';
+    display: inline-block;
+    width: 12px; height: 12px;
+    border: 2px solid var(--navy);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-left: 0.5rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: none; }
+
+  /* ════════════════════════════════════════
+     RESPONSIVE — TABLET  (≤ 1024px)
+  ════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    nav { padding: 1.1rem 2.5rem; }
+    .hero { padding: 0 2.5rem; }
+    section { padding: 5rem 2.5rem; }
+    footer { padding: 2rem 2.5rem; }
+    .about-grid { gap: 3rem; }
+    .avatar-ring { width: 270px; height: 270px; }
+    .avatar-inner { width: 218px; height: 218px; }
+  }
+
+  /* ════════════════════════════════════════
+     RESPONSIVE — MOBILE  (≤ 768px)
+  ════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* NAV */
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }          /* hide desktop links */
+    .nav-toggle { display: flex; }         /* show hamburger */
+    .mobile-menu { display: flex; }        /* enable mobile drawer */
+
+    /* HERO — stack columns, center content */
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 7rem 1.25rem 4rem;
+      text-align: center;
+      gap: 2.5rem;
+    }
+    .hero-tagline { margin: 0 auto 2.5rem; }
+    .hero-cta {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .btn-primary, .btn-outline {
+      width: 100%;
+      text-align: center;
+      padding: 0.9rem 1.5rem;
+    }
+
+    /* Show avatar on mobile, smaller */
+    .hero-visual { display: flex; }
+    .avatar-ring { width: 200px; height: 200px; }
+    .avatar-inner { width: 160px; height: 160px; }
+    .avatar-initials { font-size: 2.4rem; }
+
+    /* SECTIONS */
+    section { padding: 3.5rem 1.25rem; }
+    .section-title { margin-bottom: 2rem; }
+
+    /* ABOUT */
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .detail-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .detail-label { min-width: unset; }
+
+    /* EDUCATION */
+    .edu-grid { grid-template-columns: 1fr; }
+
+    /* STRENGTHS */
+    .strengths-grid { grid-template-columns: 1fr 1fr; }
+
+    /* CONTACT FORM */
+    .form-row { grid-template-columns: 1fr; }
+    .form-actions { flex-direction: column; }
+    .btn-email, .btn-whatsapp { width: 100%; justify-content: center; }
+
+    /* CONTACT */
+    .contact-grid { grid-template-columns: 1fr; max-width: 100%; }
+
+    /* REFERENCES */
+    .ref-grid { grid-template-columns: 1fr; }
+    .ref-card { flex-direction: column; align-items: flex-start; }
+
+    /* FOOTER */
+    footer { padding: 1.5rem 1.25rem; font-size: 0.75rem; }
+  }
+
+  /* ════════════════════════════════════════
+     RESPONSIVE — SMALL MOBILE  (≤ 400px)
+  ════════════════════════════════════════ */
+  @media (max-width: 400px) {
+    .hero-name { font-size: 2.4rem; }
+    .strengths-grid { grid-template-columns: 1fr; }
+    .btn-primary, .btn-outline { font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Khusab Lamichhane</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <!-- Hamburger -->
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"      class="menu-link">About</a>
+  <a href="#experience" class="menu-link">Experience</a>
+  <a href="#education"  class="menu-link">Education</a>
+  <a href="#strengths"  class="menu-link">Strengths</a>
+  <a href="#contact"    class="menu-link">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Banking & Finance Professional</p>
+    <h1 class="hero-name">Khusab<br><span>Lamichhane</span></h1>
+    <p class="hero-tagline">MBA candidate with 3+ years of banking experience at Himalayan Bank Ltd, passionate about finance, teamwork, and continuous growth.</p>
+    <div class="hero-cta">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <!-- Social icons -->
+    <div class="social-links hero-social">
+      <a href="https://www.linkedin.com/in/khusab-lamichhane-021417182/" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.facebook.com/lamichhanekhusab" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/khusablamichhane/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+      <a href="https://x.com/khusablami65197" target="_blank" rel="noopener" class="social-btn" aria-label="Twitter / X">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="avatar-ring">
+      <div class="avatar-inner" style="padding:0; border: 3px solid var(--gold);">
+        <img src="khusab_lamichhane.jpg"
+             alt="Khusab Lamichhane"
+             style="width:100%; height:100%; object-fit:cover; object-position: 10%; border-radius:50%;"
+             onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'avatar-initials\'>KL</div><div class=\'avatar-sub\'>Portfolio</div>'">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="fade-up">
+    <p class="section-label">About Me</p>
+    <h2 class="section-title">Dedicated. Organized.<br>Always Learning.</h2>
+  </div>
+  <div class="about-grid">
+    <div class="fade-up">
+      <p class="about-objective">
+        I am a dedicated, organized, and methodical individual with strong interpersonal skills. An excellent team player who is very willing to learn and develop new skills continuously.
+      </p>
+      <p style="font-size:0.95rem; line-height:1.8; color: var(--text-muted);">
+        Based in Birendranagar, Surkhet, I have built my career in the Nepalese banking sector,
+        gaining hands-on experience from internships to a full-time role spanning over three years.
+        Currently pursuing my MBA to further deepen my expertise in management and finance.
+      </p>
+    </div>
+    <div class="fade-up">
+      <div class="about-details">
+        <div class="detail-item">
+          <span class="detail-label">Location</span>
+          <span class="detail-value">Birendranagar-13, Surkhet, Nepal</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Date of Birth</span>
+          <span class="detail-value">2056-07-01 (B.S.)</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Status</span>
+          <span class="detail-value">Unmarried</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Phone</span>
+          <span class="detail-value">9848093838 / 9802593838</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Email</span>
+          <span class="detail-value">lamichhanekhusab@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="fade-up">
+    <p class="section-label">Career Path</p>
+    <h2 class="section-title">Work Experience</h2>
+  </div>
+  <div class="timeline fade-up">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-company">Himalayan Bank Ltd</p>
+      <h3 class="timeline-role">Banking Professional</h3>
+      <p class="timeline-desc">Full-time role spanning more than 3 years, developing deep expertise in banking operations, customer service, and financial management within one of Nepal's premier private banks.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-company">Laxmi Bank</p>
+      <h3 class="timeline-role">QR Internship</h3>
+      <p class="timeline-desc">2-month internship focused on QR-based digital payment systems and modern banking technology integration.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-company">Laxmi Bank</p>
+      <h3 class="timeline-role">Internship</h3>
+      <p class="timeline-desc">2-month internship providing foundational exposure to banking procedures, operations, and customer-facing financial services.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="fade-up">
+    <p class="section-label">Academic Background</p>
+    <h2 class="section-title">Education</h2>
+  </div>
+  <div class="edu-grid fade-up">
+    <div class="edu-card">
+      <p class="edu-level">Postgraduate</p>
+      <h3 class="edu-degree">MBA (Management)</h3>
+      <p class="edu-faculty">Faculty of Management</p>
+      <span class="edu-badge">3rd Semester — Running</span>
+    </div>
+    <div class="edu-card">
+      <p class="edu-level">Graduate</p>
+      <h3 class="edu-degree">BBS</h3>
+      <p class="edu-faculty">Bachelor of Business Studies</p>
+      <span class="edu-badge">Completed</span>
+    </div>
+    <div class="edu-card">
+      <p class="edu-level">Higher Secondary</p>
+      <h3 class="edu-degree">HSEB +2</h3>
+      <p class="edu-faculty">Management Stream</p>
+      <span class="edu-badge">CGPA 2.67</span>
+    </div>
+    <div class="edu-card">
+      <p class="edu-level">Secondary</p>
+      <h3 class="edu-degree">SEE — Grade 10</h3>
+      <p class="edu-faculty">Secondary Education Examination</p>
+      <span class="edu-badge">GPA 2.85</span>
+    </div>
+  </div>
+</section>
+
+<!-- STRENGTHS -->
+<section class="strengths" id="strengths">
+  <div class="fade-up">
+    <p class="section-label">What I Bring</p>
+    <h2 class="section-title">Personal Strengths</h2>
+  </div>
+  <div class="strengths-grid fade-up">
+    <div class="strength-card">
+      <div class="strength-icon">🔄</div>
+      <h3 class="strength-name">Flexibility &<br>Adaptability</h3>
+    </div>
+    <div class="strength-card">
+      <div class="strength-icon">💬</div>
+      <h3 class="strength-name">Good<br>Communication</h3>
+    </div>
+    <div class="strength-card">
+      <div class="strength-icon">🤝</div>
+      <h3 class="strength-name">Excellent<br>Team Work</h3>
+    </div>
+    <div class="strength-card">
+      <div class="strength-icon">🎯</div>
+      <h3 class="strength-name">Steadiness<br>Under Pressure</h3>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section class="references" id="references">
+  <div class="fade-up">
+    <p class="section-label">Professional References</p>
+    <h2 class="section-title">References</h2>
+  </div>
+  <div class="ref-grid fade-up">
+    <div class="ref-card">
+      <div class="ref-avatar">CA</div>
+      <div>
+        <p class="ref-name">Chhabi Lal Acharya</p>
+        <p class="ref-org">Sahara Campus</p>
+        <p class="ref-role">Campus Chief</p>
+        <p class="ref-contact">chhabiacharyskt@gmail.com<br>9851013738</p>
+      </div>
+    </div>
+    <div class="ref-card">
+      <div class="ref-avatar">RK</div>
+      <div>
+        <p class="ref-name">Raghab Khadka</p>
+        <p class="ref-org">Himalayan Bank Ltd</p>
+        <p class="ref-role">Branch Manager</p>
+        <p class="ref-contact">raghab.khadka@himalayanbank.com<br>9851200916</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="fade-up">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="contact-tagline">Open to opportunities in banking, finance, and management.</p>
+  </div>
+
+  <!-- Social icons row -->
+  <div class="contact-social fade-up">
+    <a href="https://www.linkedin.com/in/khusab-lamichhane-021417182/" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/lamichhanekhusab" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/khusablamichhane/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://x.com/khusablami65197" target="_blank" rel="noopener" class="social-btn" aria-label="Twitter / X">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+  </div>
+
+  <!-- Message form -->
+  <div class="contact-form-wrap fade-up">
+    <h3>Send Me a Message</h3>
+    <div class="form-row">
+      <div class="form-field">
+        <label for="cf-name">Your Name</label>
+        <input type="text" id="cf-name" placeholder="e.g. Ram Sharma">
+      </div>
+      <div class="form-field">
+        <label for="cf-email">Your Email</label>
+        <input type="email" id="cf-email" placeholder="you@example.com">
+      </div>
+    </div>
+    <div class="form-field">
+      <label for="cf-subject">Subject</label>
+      <input type="text" id="cf-subject" placeholder="Job opportunity / Collaboration / ...">
+    </div>
+    <div class="form-field">
+      <label for="cf-msg">Message</label>
+      <textarea id="cf-msg" rows="5" placeholder="Write your message here…"></textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn-email" id="sendEmail">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Send via Email
+      </button>
+      <button class="btn-whatsapp" id="sendWhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat on WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <!-- Info cards -->
+  <div class="contact-grid fade-up">
+    <div class="contact-item">
+      <p class="contact-item-label">Email</p>
+      <p class="contact-item-value"><a href="mailto:lamichhanekhusab@gmail.com" style="color:inherit;text-decoration:none;">lamichhanekhusab@gmail.com</a></p>
+    </div>
+    <div class="contact-item">
+      <p class="contact-item-label">Phone</p>
+      <p class="contact-item-value"><a href="tel:+9779848093838" style="color:inherit;text-decoration:none;">9848093838</a><br><a href="tel:+9779802593838" style="color:inherit;text-decoration:none;">9802593838</a></p>
+    </div>
+    <div class="contact-item">
+      <p class="contact-item-label">Location</p>
+      <p class="contact-item-value">Birendranagar-13, Surkhet, Nepal</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-social">
+    <a href="https://www.linkedin.com/in/khusab-lamichhane-021417182/" target="_blank" rel="noopener" class="social-btn" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/lamichhanekhusab" target="_blank" rel="noopener" class="social-btn" aria-label="Facebook">
+      <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/khusablamichhane/" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+    </a>
+    <a href="https://x.com/khusablami65197" target="_blank" rel="noopener" class="social-btn" aria-label="Twitter / X">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+  </div>
+  <p>© 2026 Khusab Lamichhane &nbsp;·&nbsp; Birendranagar, Surkhet, Nepal</p>
+</footer>
+
+<script>
+  /* ── Intersection Observer for fade-up ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Hamburger menu toggle ── */
+  const toggle = document.querySelector('.nav-toggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function openMenu() {
+    toggle.classList.add('open');
+    mobileMenu.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    toggle.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  /* Close when a menu link is tapped */
+  document.querySelectorAll('.menu-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  /* ── EmailJS init ── */
+  emailjs.init('93-GQ3yfNjtaerJBd');
+
+  function showToast(msg, type) {
+    let toast = document.getElementById('siteToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'siteToast';
+      toast.className = 'toast';
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.className = 'toast ' + type;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => toast.classList.add('show'));
+    });
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  /* ── Send via EmailJS ── */
+  document.getElementById('sendEmail').addEventListener('click', () => {
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const subject = document.getElementById('cf-subject').value.trim() || 'Portfolio Enquiry';
+    const message = document.getElementById('cf-msg').value.trim();
+
+    if (!name || !email || !message) {
+      showToast('Please fill in Name, Email and Message.', 'error');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showToast('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    const btn = document.getElementById('sendEmail');
+    btn.classList.add('loading');
+    btn.textContent = 'Sending…';
+
+    emailjs.send('service_o9yg0bc', 'template_3j6gjxs', {
+      from_name:  name,
+      from_email: email,
+      subject:    subject,
+      message:    message
+    }).then(() => {
+      showToast('✓ Message sent! I\'ll be in touch soon.', 'success');
+      document.getElementById('cf-name').value    = '';
+      document.getElementById('cf-email').value   = '';
+      document.getElementById('cf-subject').value = '';
+      document.getElementById('cf-msg').value     = '';
+    }).catch(() => {
+      showToast('Something went wrong. Try WhatsApp or email directly.', 'error');
+    }).finally(() => {
+      btn.classList.remove('loading');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;flex-shrink:0"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> Send via Email';
+    });
+  });
+
+  document.getElementById('sendWhatsApp').addEventListener('click', () => {
+    const name = document.getElementById('cf-name').value.trim();
+    const msg  = document.getElementById('cf-msg').value.trim();
+    const text = (name ? 'Hi Khusab, this is ' + name + '. ' : 'Hi Khusab, ') + (msg || 'I found your portfolio and wanted to connect.');
+    window.open('https://wa.me/9779815585180?text=' + encodeURIComponent(text), '_blank');
+  });
+</script>
+</body>
+</html>
