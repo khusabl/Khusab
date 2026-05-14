@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karnali Soul — Surkhet Valley Tour</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --clay: #C4714A;
+    --deep: #1A1208;
+    --forest: #2D4A2F;
+    --cream: #F5EDD8;
+    --gold: #C8A84B;
+    --mist: #8BA89C;
+    --rust: #9B4E2A;
+    --parchment: #EDE0C4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 6vw 8vh;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(44,74,47,0.5) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(196,113,74,0.3) 0%, transparent 55%),
+      linear-gradient(160deg, #0D1A0E 0%, #1A1208 40%, #2A1A08 100%);
+    z-index: 0;
+  }
+
+  .hero-texture {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C4714A' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    z-index: 0;
+  }
+
+  .hero-mountains {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 45%;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .hero-mountains svg { width: 100%; height: 100%; }
+
+  .tag-line {
+    position: absolute;
+    top: 6vh; right: 6vw;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    z-index: 10;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .prepared-badge {
+    position: absolute;
+    top: 6vh; left: 6vw;
+    z-index: 10;
+    border: 1px solid rgba(200,168,75,0.3);
+    padding: 10px 18px;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-eyebrow {
+    font-size: clamp(0.65rem, 1vw, 0.8rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-style: italic;
+    color: var(--mist);
+    margin-bottom: 3rem;
+    max-width: 500px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--clay);
+    color: var(--cream);
+    padding: 16px 36px;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+
+  .hero-cta:hover { background: var(--rust); }
+
+  .hero-cta svg { width: 16px; height: 16px; }
+
+  /* SECTIONS */
+  section { padding: 8vh 6vw; }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--clay);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 2rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+  }
+
+  /* PACKAGE OVERVIEW */
+  .overview {
+    background: linear-gradient(135deg, #1E1508 0%, #1A1208 100%);
+    border-top: 1px solid rgba(200,168,75,0.2);
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .overview-text p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(245,237,216,0.75);
+    margin-bottom: 1.5rem;
+  }
+
+  .package-card {
+    background: rgba(200,168,75,0.07);
+    border: 1px solid rgba(200,168,75,0.2);
+    padding: 2.5rem;
+  }
+
+  .package-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .package-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(200,168,75,0.12);
+    font-size: 0.85rem;
+  }
+
+  .package-stat:last-child { border-bottom: none; }
+
+  .package-stat .label { color: var(--mist); letter-spacing: 0.1em; }
+  .package-stat .value { color: var(--cream); font-weight: 500; }
+
+  /* TARGET */
+  .target {
+    background: var(--forest);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .target::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,113,74,0.15) 0%, transparent 70%);
+  }
+
+  .target-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .target-card {
+    background: rgba(26,18,8,0.6);
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .target-card:hover { background: rgba(26,18,8,0.9); }
+
+  .target-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .target-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--cream);
+    margin-bottom: 0.7rem;
+  }
+
+  .target-card p {
+    font-size: 0.85rem;
+    color: rgba(245,237,216,0.6);
+    line-height: 1.7;
+  }
+
+  .target-card.primary {
+    background: rgba(196,113,74,0.2);
+    border: 1px solid rgba(196,113,74,0.4);
+  }
+
+  .target-card.primary h3 { color: var(--gold); }
+
+  /* ATTRACTIONS */
+  .attractions {
+    background: var(--deep);
+  }
+
+  .attractions-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .attraction-item {
+    position: relative;
+    padding: 3rem 2.5rem;
+    background: #1E1810;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .attraction-item:hover { transform: translateY(-3px); }
+
+  .attraction-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(200,168,75,0.1);
+    position: absolute;
+    top: 1rem; right: 1.5rem;
+    line-height: 1;
+  }
+
+  .attraction-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--clay);
+    margin-bottom: 0.8rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .attraction-item p {
+    font-size: 0.88rem;
+    color: rgba(245,237,216,0.65);
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .attraction-tag {
+    display: inline-block;
+    background: rgba(196,113,74,0.15);
+    border: 1px solid rgba(196,113,74,0.3);
+    color: var(--clay);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-bottom: 1rem;
+  }
+
+  /* ITINERARY */
+  .itinerary {
+    background: linear-gradient(160deg, #1A1208 0%, #0D1A0E 100%);
+    position: relative;
+  }
+
+  .itinerary::after {
+    content: '';
+    position: absolute;
+    left: 6vw;
+    top: 25%;
+    bottom: 10%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0.3;
+  }
+
+  .itinerary-timeline {
+    position: relative;
+    margin-top: 3rem;
+  }
+
+  .itinerary-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 3rem;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .itinerary-item + .itinerary-item {
+    border-top: 1px solid rgba(200,168,75,0.1);
+    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .itinerary-time {
+    text-align: right;
+    padding-top: 0.2rem;
+  }
+
+  .itinerary-time .time {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+
+  .itinerary-time .period {
+    font-size: 0.7rem;
+    color: var(--mist);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .itinerary-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--clay);
+    position: absolute;
+    left: 120px;
+    top: 0.5rem;
+    transform: translateX(-50%);
+    box-shadow: 0 0 0 3px rgba(196,113,74,0.2);
+  }
+
+  .itinerary-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .itinerary-content p {
+    font-size: 0.88rem;
+    color: rgba(245,237,216,0.6);
+    line-height: 1.7;
+  }
+
+  .itinerary-emoji { margin-right: 6px; }
+
+  /* BUDGET */
+  .budget {
+    background: #1A1208;
+  }
+
+  .budget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+
+  .budget-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .budget-table th {
+    text-align: left;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    padding: 0 0 1rem 0;
+    border-bottom: 1px solid rgba(200,168,75,0.2);
+  }
+
+  .budget-table td {
+    padding: 1rem 0;
+    font-size: 0.88rem;
+    border-bottom: 1px solid rgba(200,168,75,0.08);
+    color: rgba(245,237,216,0.8);
+    vertical-align: top;
+  }
+
+  .budget-table td:last-child {
+    text-align: right;
+    color: var(--gold);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .budget-total td {
+    border-top: 2px solid var(--gold);
+    border-bottom: none;
+    color: var(--cream) !important;
+    font-weight: 500;
+    padding-top: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .budget-total td:last-child { color: var(--gold) !important; font-size: 1.2rem; }
+
+  .hotel-card {
+    background: rgba(200,168,75,0.05);
+    border: 1px solid rgba(200,168,75,0.2);
+    padding: 2.5rem;
+    height: fit-content;
+  }
+
+  .hotel-card .hotel-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .hotel-card .hotel-type {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 1.5rem;
+  }
+
+  .hotel-feature {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    color: rgba(245,237,216,0.7);
+  }
+
+  .hotel-feature span:first-child { color: var(--clay); flex-shrink: 0; }
+
+  .hotel-price {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(200,168,75,0.2);
+    font-size: 0.8rem;
+    color: var(--mist);
+  }
+
+  .hotel-price strong { color: var(--gold); font-size: 1.3rem; }
+
+  /* STAFF & SERVICES */
+  .staff {
+    background: var(--forest);
+  }
+
+  .staff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .staff-card {
+    background: rgba(26,18,8,0.7);
+    padding: 2.5rem 2rem;
+  }
+
+  .staff-card .role-icon { font-size: 2.5rem; margin-bottom: 1.2rem; }
+
+  .staff-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--clay);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .staff-card ul {
+    list-style: none;
+    font-size: 0.82rem;
+    color: rgba(245,237,216,0.65);
+    line-height: 2;
+  }
+
+  .staff-card ul li::before {
+    content: '→ ';
+    color: var(--gold);
+  }
+
+  /* SERVICES */
+  .services {
+    background: var(--deep);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .service-item {
+    background: #1E1810;
+    padding: 2.5rem 1.8rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+
+  .service-item:hover { background: rgba(196,113,74,0.12); }
+
+  .service-item .icon { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
+
+  .service-item h3 {
+    font-size: 0.85rem;
+    color: var(--cream);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .service-item p {
+    font-size: 0.78rem;
+    color: rgba(245,237,216,0.5);
+    line-height: 1.6;
+  }
+
+  /* USP */
+  .usp {
+    background: linear-gradient(135deg, #1A2D1B 0%, #1A1208 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .usp::before {
+    content: '"';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 30rem;
+    color: rgba(200,168,75,0.04);
+    top: -5rem;
+    left: -2rem;
+    line-height: 1;
+    z-index: 0;
+  }
+
+  .usp-content { position: relative; z-index: 1; }
+
+  .usp-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.5;
+    max-width: 800px;
+    margin-bottom: 3rem;
+  }
+
+  .usp-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .usp-pillar {
+    background: rgba(26,18,8,0.7);
+    padding: 2.5rem 2rem;
+    border-left: 3px solid var(--clay);
+  }
+
+  .usp-pillar h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .usp-pillar p {
+    font-size: 0.85rem;
+    color: rgba(245,237,216,0.65);
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0D0C08;
+    padding: 5vh 6vw;
+    border-top: 1px solid rgba(200,168,75,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+
+  footer p {
+    font-size: 0.78rem;
+    color: rgba(245,237,216,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content > * {
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+  }
+
+  .hero-eyebrow { animation-delay: 0.2s; }
+  .hero-title { animation-delay: 0.4s; }
+  .hero-subtitle { animation-delay: 0.6s; }
+  .hero-cta { animation-delay: 0.8s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .overview-grid,
+    .budget-grid,
+    .attractions-list { grid-template-columns: 1fr; gap: 2rem; }
+
+    .target-grid,
+    .staff-grid { grid-template-columns: 1fr; }
+
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .usp-pillars { grid-template-columns: 1fr; }
+
+    .hero-title { font-size: clamp(3rem, 12vw, 5rem); }
+
+    .itinerary-item { grid-template-columns: 80px 1fr; gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+
+  <div class="hero-mountains">
+    <svg viewBox="0 0 1440 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,300 0,200 120,80 240,150 360,60 520,170 680,40 820,140 960,70 1100,160 1260,50 1440,120 1440,300" fill="#0D1A0E" opacity="0.9"/>
+      <polygon points="0,300 0,240 100,150 200,200 340,110 480,190 600,80 720,170 880,100 1020,180 1160,120 1320,190 1440,160 1440,300" fill="#1A1208" opacity="0.95"/>
+    </svg>
+  </div>
+
+  <div class="prepared-badge">Prepared by Khusab Lamichhane</div>
+  <div class="tag-line">Karnali Province, Nepal</div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">One-Day Tour Package · Surkhet Valley</p>
+    <h1 class="hero-title">Karnali<br><em>Soul</em><br>Journey</h1>
+    <p class="hero-subtitle">Where ancient temples meet emerald lakes and the spirit of Karnali breathes through every valley breeze.</p>
+    <a href="#overview" class="hero-cta">
+      Discover the Package
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section class="overview" id="overview">
+  <p class="section-label">01 — Package Overview</p>
+  <div class="overview-grid">
+    <div class="overview-text">
+      <h2 class="section-title">The Karnali Soul Experience</h2>
+      <div class="divider"></div>
+      <p>Surkhet Valley, the gateway to Karnali — Nepal's most unspoiled province — is a destination that rewards the curious traveler with sacred heritage, pristine nature, and authentic community life, all within a single unforgettable day.</p>
+      <p>This carefully curated package blends spiritual discovery at Deutibajai Temple, serene lakeside moments at Bulbule, ancient ruins at Kakrebihar, and a genuine farm-to-table organic feast that connects you to the land itself.</p>
+      <p>We don't just show you places. We immerse you in stories, flavors, and encounters that become the memories you carry home.</p>
+    </div>
+
+    <div class="package-card">
+      <h3>Package at a Glance</h3>
+      <div class="package-stat">
+        <span class="label">Package Name</span>
+        <span class="value">Karnali Soul Journey</span>
+      </div>
+      <div class="package-stat">
+        <span class="label">Duration</span>
+        <span class="value">1 Day (7:00 AM – 6:00 PM)</span>
+      </div>
+      <div class="package-stat">
+        <span class="label">Location</span>
+        <span class="value">Surkhet Valley, Karnali</span>
+      </div>
+      <div class="package-stat">
+        <span class="label">Group Size</span>
+        <span class="value">2 – 12 Travelers</span>
+      </div>
+      <div class="package-stat">
+        <span class="label">Language</span>
+        <span class="value">Nepali / English</span>
+      </div>
+      <div class="package-stat">
+        <span class="label">Price Per Person</span>
+        <span class="value">NPR 3,500</span>
+      </div>
+      <div class="package-stat">
+        <span class="label">Difficulty</span>
+        <span class="value">Easy – Moderate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET -->
+<section class="target">
+  <p class="section-label">02 — Target Audience</p>
+  <h2 class="section-title">Who This Journey Is For</h2>
+  <div class="divider"></div>
+
+  <div class="target-grid">
+    <div class="target-card primary">
+      <span class="icon">🎓</span>
+      <h3>Students & Youth</h3>
+      <p>Perfect for field trips and educational tourism. Surkhet's historical, ecological, and cultural layers make every stop a living classroom experience.</p>
+    </div>
+    <div class="target-card">
+      <span class="icon">🌍</span>
+      <h3>Domestic Explorers</h3>
+      <p>Nepali travelers seeking an authentic off-the-beaten-path destination beyond the tourist trail will find Surkhet deeply rewarding.</p>
+    </div>
+    <div class="target-card">
+      <span class="icon">👨‍👩‍👧</span>
+      <h3>Families</h3>
+      <p>A gentle pace, beautiful scenery, and diverse activities make this ideal for families with children of all ages looking to share meaningful experiences.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ATTRACTIONS -->
+<section class="attractions">
+  <p class="section-label">03 — Tourist Attractions</p>
+  <h2 class="section-title">What Awaits You</h2>
+  <div class="divider"></div>
+
+  <div class="attractions-list">
+    <div class="attraction-item">
+      <div class="attraction-num">01</div>
+      <span class="attraction-tag">Spiritual · Heritage</span>
+      <h3>Deutibajai Temple</h3>
+      <p>Perched atop a hill commanding sweeping views of the valley, this revered temple is Surkhet's most iconic landmark. Its spiritual energy and architectural beauty make it an unforgettable opening to the day — particularly magical in morning light.</p>
+    </div>
+    <div class="attraction-item">
+      <div class="attraction-num">02</div>
+      <span class="attraction-tag">Nature · Serenity</span>
+      <h3>Bulbule Lake</h3>
+      <p>A jewel of natural beauty nestled near the heart of Surkhet, Bulbule Lake offers tranquil boating, birdwatching opportunities, and serene reflection moments surrounded by lush greenery. Perfect for nature lovers and photographers alike.</p>
+    </div>
+    <div class="attraction-item">
+      <div class="attraction-num">03</div>
+      <span class="attraction-tag">Archaeology · History</span>
+      <h3>Kakrebihar Ruins</h3>
+      <p>Ancient Buddhist monastery ruins dating back centuries, Kakrebihar is a haunting and beautiful site that connects travelers to the deep historical roots of the Karnali region. Walking these grounds is to walk through time itself.</p>
+    </div>
+    <div class="attraction-item">
+      <div class="attraction-num">04</div>
+      <span class="attraction-tag">Culture · Cuisine</span>
+      <h3>Organic Farm Experience</h3>
+      <p>A hands-on encounter with local farming communities where travelers share a farm-to-table organic lunch, learn traditional food preparation, and engage with the warm hospitality that defines Karnali culture. An experience money rarely buys.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section class="itinerary">
+  <p class="section-label">04 — Time Schedule</p>
+  <h2 class="section-title">Your Day, Beautifully Planned</h2>
+  <div class="divider"></div>
+
+  <div class="itinerary-timeline">
+
+    <div class="itinerary-item">
+      <div class="itinerary-time">
+        <span class="time">7:00</span>
+        <span class="period">Morning</span>
+      </div>
+      <div class="itinerary-dot" style="top: 0.3rem;"></div>
+      <div class="itinerary-content">
+        <h3><span class="itinerary-emoji">🍵</span>Welcome Breakfast & Tour Briefing</h3>
+        <p>Meet your guide at the hotel over a traditional Karnali breakfast — local daal-bhat, fresh fruits, and butter tea. Your guide will walk you through the day's journey, hand out orientation maps, and answer any questions before departure.</p>
+      </div>
+    </div>
+
+    <div class="itinerary-item">
+      <div class="itinerary-time">
+        <span class="time">8:00</span>
+        <span class="period">Morning</span>
+      </div>
+      <div class="itinerary-dot"></div>
+      <div class="itinerary-content">
+        <h3><span class="itinerary-emoji">🛕</span>Deutibajai Temple — Sacred Morning</h3>
+        <p>Begin with the hilltop Deutibajai Temple for panoramic sunrise views. Your guide will narrate the temple's legend, significance, and architectural features. Photography is encouraged. Light incense, observe rituals, and soak in the spiritual atmosphere.</p>
+      </div>
+    </div>
+
+    <div class="itinerary-item">
+      <div class="itinerary-time">
+        <span class="time">10:30</span>
+        <span class="period">Morning</span>
+      </div>
+      <div class="itinerary-dot"></div>
+      <div class="itinerary-content">
+        <h3><span class="itinerary-emoji">🏛️</span>Kakrebihar Archaeological Site</h3>
+        <p>Explore the ancient Buddhist monastery ruins and let history come alive through expert guided narration. Allocated free exploration time allows personal discovery among stone carvings and centuries-old architecture in a serene natural setting.</p>
+      </div>
+    </div>
+
+    <div class="itinerary-item">
+      <div class="itinerary-time">
+        <span class="time">1:00</span>
+        <span class="period">Afternoon</span>
+      </div>
+      <div class="itinerary-dot"></div>
+      <div class="itinerary-content">
+        <h3><span class="itinerary-emoji">🥘</span>Local Organic Lunch at the Farm</h3>
+        <p>Arrive at a partner organic farm for a genuine farm-to-table experience. Enjoy locally grown seasonal vegetables, freshly milled rice, and traditional Karnali dishes. Meet the farming family and optionally help with a brief hands-on activity in the garden.</p>
+      </div>
+    </div>
+
+    <div class="itinerary-item">
+      <div class="itinerary-time">
+        <span class="time">3:00</span>
+        <span class="period">Afternoon</span>
+      </div>
+      <div class="itinerary-dot"></div>
+      <div class="itinerary-content">
+        <h3><span class="itinerary-emoji">🚣</span>Bulbule Lake & Cultural Interaction</h3>
+        <p>A serene visit to Bulbule Lake for optional paddleboat rides and lakeside walks. Followed by a brief community cultural exchange — local women's groups demonstrate traditional crafts, folk songs, and offer handmade souvenirs for purchase.</p>
+      </div>
+    </div>
+
+    <div class="itinerary-item">
+      <div class="itinerary-time">
+        <span class="time">6:00</span>
+        <span class="period">Evening</span>
+      </div>
+      <div class="itinerary-dot"></div>
+      <div class="itinerary-content">
+        <h3><span class="itinerary-emoji">🌅</span>Farewell & Departure</h3>
+        <p>Return to the hotel or departure point as the valley glows in golden hour light. Your guide presents a certificate of visit and a small Karnali souvenir — a handcrafted memento of the day. Feedback forms and warm farewells conclude the journey.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BUDGET & HOTEL -->
+<section class="budget">
+  <p class="section-label">05 & 06 — Budget & Accommodation</p>
+  <h2 class="section-title">Transparent Pricing</h2>
+  <div class="divider"></div>
+
+  <div class="budget-grid">
+    <div>
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Details</th>
+            <th style="text-align:right">NPR / Person</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Transportation</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">Private vehicle, fuel & parking</td>
+            <td>800</td>
+          </tr>
+          <tr>
+            <td>Meals</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">Breakfast + Organic lunch included</td>
+            <td>600</td>
+          </tr>
+          <tr>
+            <td>Professional Guide</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">Bilingual licensed guide</td>
+            <td>400</td>
+          </tr>
+          <tr>
+            <td>Entry Fees</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">Temple, ruins & lake access</td>
+            <td>300</td>
+          </tr>
+          <tr>
+            <td>Souvenir</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">Handcrafted local keepsake</td>
+            <td>150</td>
+          </tr>
+          <tr>
+            <td>Emergency Fund</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">First aid, contingencies</td>
+            <td>100</td>
+          </tr>
+          <tr>
+            <td>Company Overhead</td>
+            <td style="color:rgba(245,237,216,0.5); font-size:0.8rem;">Insurance, operations</td>
+            <td>150</td>
+          </tr>
+          <tr>
+            <td style="color:var(--gold)">Profit Margin (20%)</td>
+            <td></td>
+            <td>500</td>
+          </tr>
+          <tr class="budget-total">
+            <td colspan="2"><strong>Total Package Price</strong></td>
+            <td><strong>NPR 3,500</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="hotel-card">
+        <div class="hotel-name">Bheri Hotel & Resort</div>
+        <div class="hotel-type">Recommended Accommodation · Surkhet</div>
+
+        <div class="hotel-feature">
+          <span>📍</span>
+          <span>Centrally located in Birendranagar, Surkhet — close to all tour start points, reducing morning travel time.</span>
+        </div>
+        <div class="hotel-feature">
+          <span>⭐</span>
+          <span>3-star quality facilities with clean, comfortable rooms suitable for both domestic and international guests.</span>
+        </div>
+        <div class="hotel-feature">
+          <span>🍽️</span>
+          <span>In-house restaurant serving authentic Karnali cuisine — ideal for the morning briefing breakfast included in the package.</span>
+        </div>
+        <div class="hotel-feature">
+          <span>📶</span>
+          <span>Reliable Wi-Fi, luggage storage, and 24-hour front desk available for tour group coordination.</span>
+        </div>
+        <div class="hotel-feature">
+          <span>💰</span>
+          <span>Competitive rates negotiated under group partnership agreement — value for money without quality compromise.</span>
+        </div>
+
+        <div class="hotel-price">
+          Room rate (if staying overnight): <strong>NPR 1,800–2,500</strong> / night<br>
+          <span style="opacity:0.6; font-size:0.75rem; margin-top:4px; display:block;">Not included in day-tour price · Optional add-on</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STAFFING -->
+<section class="staff">
+  <p class="section-label">07 — Staffing & Management</p>
+  <h2 class="section-title">The People Behind the Journey</h2>
+  <div class="divider"></div>
+
+  <div class="staff-grid">
+    <div class="staff-card">
+      <div class="role-icon">🧭</div>
+      <h3>Lead Tour Guide</h3>
+      <ul>
+        <li>Licensed by Nepal Tourism Board</li>
+        <li>Fluent in Nepali & English</li>
+        <li>Specialized in Karnali history & culture</li>
+        <li>First aid certified</li>
+        <li>Manages group pacing & energy</li>
+        <li>Provides cultural commentary at each site</li>
+      </ul>
+    </div>
+    <div class="staff-card">
+      <div class="role-icon">🚐</div>
+      <h3>Professional Driver</h3>
+      <ul>
+        <li>Commercial vehicle licensed</li>
+        <li>Experienced with Surkhet terrain</li>
+        <li>Maintains vehicle safety checks daily</li>
+        <li>Assists with luggage handling</li>
+        <li>Follows punctual time schedule</li>
+        <li>Emergency contact coordination</li>
+      </ul>
+    </div>
+    <div class="staff-card">
+      <div class="role-icon">🛡️</div>
+      <h3>Emergency Protocols</h3>
+      <ul>
+        <li>First-aid kit onboard at all times</li>
+        <li>Nearest hospital contact pre-saved</li>
+        <li>Emergency fund reserved per group</li>
+        <li>Direct line to company operations</li>
+        <li>Weather contingency plan ready</li>
+        <li>Travel insurance guidance provided</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <p class="section-label">08 — Amenities & Services</p>
+  <h2 class="section-title">Everything Included</h2>
+  <div class="divider"></div>
+
+  <div class="services-grid">
+    <div class="service-item">
+      <span class="icon">📸</span>
+      <h3>Photography Support</h3>
+      <p>Guide assists with best vantage points and photo timings at every attraction</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">📶</span>
+      <h3>Wi-Fi & Connectivity</h3>
+      <p>Hotel Wi-Fi access and local SIM guidance for international guests</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">🧴</span>
+      <h3>Hygiene Standards</h3>
+      <p>Sanitizer kits, clean water bottles, and hygiene briefings throughout the day</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">🎁</span>
+      <h3>Local Souvenirs</h3>
+      <p>Curated handmade Karnali keepsakes gifted at tour completion</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">🗺️</span>
+      <h3>Orientation Maps</h3>
+      <p>Printed and digital Surkhet maps with highlighted sites and distances</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">🎗️</span>
+      <h3>Visit Certificate</h3>
+      <p>Official Karnali Soul Journey certificate with custom name for each traveler</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">🌱</span>
+      <h3>Eco Commitment</h3>
+      <p>No-plastic policy, community-sourced meals, and carbon-offset initiative</p>
+    </div>
+    <div class="service-item">
+      <span class="icon">♿</span>
+      <h3>Accessibility</h3>
+      <p>Accommodations made for elderly and mobility-limited travelers on request</p>
+    </div>
+  </div>
+</section>
+
+<!-- USP -->
+<section class="usp">
+  <p class="section-label">09 — Unique Selling Proposition</p>
+  <div class="usp-content">
+    <h2 class="section-title">Why Tourists Love It</h2>
+    <div class="divider"></div>
+    <p class="usp-quote">"Surkhet is Nepal's best-kept secret — and we intend to keep it that way. Not by hiding it, but by sharing it slowly, respectfully, and memorably."</p>
+
+    <div class="usp-pillars">
+      <div class="usp-pillar">
+        <h3>Authenticity Over Tourism</h3>
+        <p>Unlike packaged tours that feel manufactured, the Karnali Soul Journey connects you with real communities, real food, and real stories. No performance. Just genuine Karnali life.</p>
+      </div>
+      <div class="usp-pillar">
+        <h3>All-in-One Valley Day</h3>
+        <p>Nature, spirituality, history, cuisine, and culture — expertly sequenced into a single day so no experience feels rushed, yet nothing remarkable is missed in Surkhet Valley.</p>
+      </div>
+      <div class="usp-pillar">
+        <h3>Community Benefit Promise</h3>
+        <p>Every package directly supports local farmers, women's craft cooperatives, and heritage preservation funds. Travelers know their visit improves lives — a powerful reason to choose us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Karnali Soul Journeys</div>
+    <p style="margin-top:6px">Surkhet Valley, Karnali Province, Nepal</p>
+  </div>
+  <div style="text-align:right">
+    <p>Tourism Product Development Assignment</p>
+    <p style="margin-top:4px">Prepared by Khusab Lamichhane</p>
+  </div>
+</footer>
+
+</body>
+</html>
